@@ -3,16 +3,16 @@
 
 2. Create a web App and configure the SDK
 
-<img src="../Images/create-web-app.png" width="400">  
+<img src="./images/create-web-app.png" width="400">  
 
 
 3. Build a real-time database.  
 
-<img src="../Images/realtime-database.png" width="400">
+<img src="./images/realtime-database.png" width="400">
 
 4. Change the read and write rule so we can push the data
 
-<img src="../Images/rule.png" width="400">
+<img src="./images/rule.png" width="400">
 
 5. Create a reference, which is a **specific location** in the database where we can push the data.
 
@@ -56,4 +56,34 @@ onValue(referenceInDB, function(snapshot) {
 >>> {-Nw11oXz5yNwCakK46p-: 'Macbook Pro', -Nw11pznveNmjjnQ5FAB: 'iPhone', -Nw12tgVAbUMXOD2_ZyS: 'Playstation 4'}
 
 ```
-<img src="../Images/reference.png" width="400">
+<img src="./images/reference.png" width="400">
+
+## Add data
+We can't specify the document name in this way. 
+```jsx
+import { collection, addDoc } from "firebase/firestore"; 
+
+try {
+  const docRef = await addDoc(collection(db, "users"), {
+    first: "Ada",
+    last: "Lovelace",
+    born: 1815
+  });
+  console.log("Document written with ID: ", docRef.id);
+} catch (e) {
+  console.error("Error adding document: ", e);
+}
+```
+
+## Set a document
+To create or overwrite a single document
+```js
+import { doc, setDoc } from "firebase/firestore"; 
+
+// Add or change a document called "LA" in collection "cities"
+await setDoc(doc(db, "cities", "LA"), {
+    name: "Los Angeles",
+    state: "CA",
+    country: "USA"
+});
+```
